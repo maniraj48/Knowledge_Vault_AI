@@ -1,6 +1,5 @@
-***
 
-```markdown
+
 # 🧠 Knowledge Vault AI
 
 **Knowledge Vault AI** is a secure, offline-first desktop application designed to bring the power of Generative AI to personal document management without compromising data privacy. 
@@ -9,9 +8,9 @@ Built on a robust Python-Flask architecture, the system utilizes **Retrieval-Aug
 
 ---
 
-![Knowledge Vault AI Main Interface](https://github.com/maniraj48/Knowledge_Vault_AI/screenshots/intro.png)
+![Knowledge Vault AI Main Interface](https://github.com/maniraj48/Knowledge_Vault_AI/blob/main/screenshots/intro.png)
 
-![Demo of the Waste Classifier Web App](./demo.png)
+
 ## ✨ Key Features
 
 *   **🔒 100% Offline & Private:** Your documents never leave your computer. Inference is done locally using CPU/GPU optimized `.gguf` models.
@@ -36,11 +35,19 @@ Built on a robust Python-Flask architecture, the system utilizes **Retrieval-Aug
 
 ---
 
+![Models](https://github.com/maniraj48/Knowledge_Vault_AI/blob/main/screenshots/models.png)
+
+---
+
+
 ## 🚀 Installation & Setup
 
 ### 1. Prerequisites
-*   **Python 3.10+** installed on your system.
-*   A C++ compiler (optional, but recommended for faster `llama.cpp` installation).
+```bash
+**Python 3.10+** installed on your system.
+A C++ compiler (optional, but recommended for faster `llama.cpp` installation).
+
+```
 
 ### 2. Clone the Repository
 ```bash
