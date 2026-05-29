@@ -9,7 +9,8 @@ Built on a robust Python-Flask architecture, the system utilizes **Retrieval-Aug
 
 ---
 
-![Knowledge Vault AI Main Interface](https://github.com/maniraj48/Knowledge_Vault_AI/blob/main/screenshots/intro.png)
+![Knowledge Vault AI Main Interface](https://github.com/maniraj48/Knowledge_Vault_AI/blob/main/screenshots/intro.png?raw=true)
+
 
 ## ✨ Key Features
 
