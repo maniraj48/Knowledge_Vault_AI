@@ -9,6 +9,8 @@ Built on a robust Python-Flask architecture, the system utilizes **Retrieval-Aug
 
 ---
 
+![Knowledge Vault AI Main Interface](./screenshots/intro.png)
+
 ## ✨ Key Features
 
 *   **🔒 100% Offline & Private:** Your documents never leave your computer. Inference is done locally using CPU/GPU optimized `.gguf` models.
