@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Vault AI</title>
+    
+    <!-- 1. Tailwind CSS (The UI Framework) -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    
+    <script src="{{ url_for('static', filename='tailwindcss.js') }}"></script>
+    <!-- Configure Tailwind for offline -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        darkbg: '#111827',
+                        darkcard: '#1f2937',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- 2. FontAwesome (Icons) -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
+    
+
+    <!-- 2. FontAwesome (Icons Offline) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+    
+    <!-- 3. Marked.js (Markdown Rendering) -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> -->
+    <script src="{{ url_for('static', filename='marked.min.js') }}"></script>
+
+    <!-- 4. Custom Tweaks -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <!-- Tailwind Config for Dark Mode -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6', // ChatGPT Blue
+                        darkbg: '#111827',
+                        darkcard: '#1f2937',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-darkbg dark:text-white transition-colors duration-200 h-screen flex overflow-hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="w-72 bg-gray-100 dark:bg-darkcard border-r border-gray-200 dark:border-gray-700 flex flex-col shadow-lg z-10">
+        
+        <!-- Header -->
+        <!-- <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+            <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"><i class="fa-solid fa-brain text-primary"></i> Vault AI</h1>
+            <h1 class="font-bold text-xl tracking-tight dark:text-white"><i class="fa-solid fa-brain text-primary"></i> Vault AI</h1> -->
+
+            <!-- <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div> -->
+
+
+<!-- Header -->
+<div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+    
+    <!-- Logo Container -->
+    <!-- <h1 class="font-extrabold text-2xl tracking-tight"> -->
+        <!-- 1. The Icon (Solid Blue) -->
+        <!-- <i class="fa-solid fa-brain text-blue-500 mr-2"></i> -->
+        
+        <!-- 2. The Text (Gradient) -->
+        <!-- <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-700 to-pink-600">
+            Knowledge Vault AI
+        </span>
+    </h1> -->
+
+
+<!-- <h1 class="flex items-start gap-2 font-extrabold text-2xl leading-tight">
+    
+    <i class="fa-solid fa-brain text-primary mt-1"></i>
+
+    <span class="flex flex-col 
+        bg-gradient-to-r 
+        from-pink-600 to-rose-500
+        dark:from-pink-600 dark:to-rose-400
+        text-transparent bg-clip-text">
+        
+        <span>Knowledge</span>
+        <span>Vault AI</span><span>🧠🤖</span>
+        <span class="text-gray-900 dark:text-white">🤖🧠</span>
+        <i class="fa-solid fa-brain text-primary mt-1"></i>
+    </span>
+    
+
+</h1> -->
+<!-- <span class="flex flex-col leading-snug text-2xl font-bold"> -->
+
+    <!-- First Line -->
+    <!-- <span class="bg-gradient-to-r 
+                 from-pink-600 to-rose-500
+                 dark:from-pink-600 dark:to-rose-400
+                 text-transparent bg-clip-text">
+        Knowledge
+    </span> -->
+
+    <!-- Second Line (TEXT + EMOJI TOGETHER) -->
+    <!-- <span class="flex items-center gap-1">
+
+        <span class="bg-gradient-to-r 
+                     from-pink-600 to-rose-500
+                     dark:from-pink-600 dark:to-rose-400
+                     text-transparent bg-clip-text">
+            Vault AI
+        </span>
+
+        <span class="text-gray-900 dark:text-white">
+            🧠🤖
+        </span>
+
+    </span>
+
+</span> -->
+
+<span class="flex flex-col leading-snug text-2xl font-bold">
+
+    <!-- First Line -->
+    <span class="bg-gradient-to-r 
+                 from-violet-600 via-fuchsia-450 to-cyan-500
+                 text-transparent bg-clip-text">
+        Knowledge
+    </span>
+
+    <!-- Second Line -->
+    <span class="flex items-center gap-1">
+
+        <span class="bg-gradient-to-r 
+                     from-violet-600 via-fuchsia-450 to-cyan-500
+                     text-transparent bg-clip-text">
+            Vault AI
+        </span>
+
+        <span class="text-gray-900 dark:text-white">
+            🧠🤖
+        </span>
+
+    </span>
+
+</span>
+    <!-- Buttons Group -->
+    <div class="flex items-center gap-2">
+        <!-- NEW: Settings Button -->
+        <button id="open-settings-btn" class="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition" title="System Settings">
+            <i class="fa-solid fa-sliders"></i>
+        </button>
+
+        <!-- Existing Theme Toggle -->
+        <button id="theme-toggle" class="p-2 rounded-full text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+            <i class="fa-solid fa-moon dark:hidden"></i>
+            <i class="fa-solid fa-sun hidden dark:inline"></i>
+        </button>
+
+<!-- <button id="theme-toggle"
+    class="p-2 rounded-full 
+    text-gray-800 dark:text-gray-200
+    hover:bg-gray-200 dark:hover:bg-gray-700
+    transition">
+
+    <i class="fa-solid fa-moon dark:hidden"></i>
+    <i class="fa-solid fa-sun hidden dark:inline"></i>
+</button> -->
+
+    </div>
+</div>
+
+
+<!-- <h1 class="flex items-center gap-2 font-extrabold text-2xl tracking-tight">
+    
+    <i class="fa-solid fa-brain text-primary"></i>
+
+    <span class="bg-gradient-to-r 
+        from-pink-600 to-rose-500
+        dark:from-pink-400 dark:to-rose-300
+        text-transparent bg-clip-text">
+        Knowledge Vault AI
+    </span>
+
+</h1> -->
+
+    <!-- <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+        <i class="fa-solid fa-moon"></i>
+    </button> -->
+
+<!-- <button id="theme-toggle"
+    class="p-2 rounded-full 
+    text-gray-800 dark:text-gray-200
+    hover:bg-gray-200 dark:hover:bg-gray-700
+    transition">
+
+    <i class="fa-solid fa-moon dark:hidden"></i>
+    <i class="fa-solid fa-sun hidden dark:inline"></i>
+</button> -->
+
+</div>
+        <!-- Controls -->
+        <div class="p-4 space-y-3">
+            <button id="new-chat-btn" class="w-full flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow transition">
+                <i class="fa-solid fa-plus"></i> New Chat
+            </button>
+            
+            <!-- <button id="upload-btn" class="w-full flex items-center gap-2 bg-white dark:bg-white-700 border border-gray-300 dark:border-white-600 hover:bg-gray-50 dark:hover:bg-gray-600 px-4 py-2 rounded-lg transition text-white">
+                <i class="fa-solid fa-upload"></i> Upload PDF
+            </button> -->
+
+<button id="upload-btn"
+    class="w-full flex items-center gap-2
+    bg-white dark:bg-gray-700
+    border border-gray-300 dark:border-gray-600
+    hover:bg-gray-50 dark:hover:bg-gray-600
+    px-4 py-2 rounded-lg transition
+    text-gray-900 dark:text-white">
+
+    <i class="fa-solid fa-upload"></i> Upload PDF, DOCX
+</button>
+
+        </div>
+
+        <!-- File List Header -->
+        <div class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+            Knowledge Base
+        </div>
+
+        <!-- File List (Scrollable) -->
+        <div id="file-list" class="flex-1 overflow-y-auto px-2 pb-4 space-y-1 custom-scrollbar">
+            <!-- Items injected by JS -->
+            <div class="text-center text-gray-400 text-sm mt-4">No documents loaded</div>
+        </div>
+        
+        <!-- NEW: Settings Section -->
+<!-- In the #settings-area in the sidebar -->
+<div id="settings-area" class="px-4 py-3 mt-auto border-t border-gray-200 dark:border-gray-700 space-y-3">
+    <div>
+        <label for="model-selector" class="block mb-2 text-xs font-medium text-gray-500 dark:text-gray-400">AI MODEL</label>
+<select id="model-selector" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">           <option selected>Loading models...</option>
+        </select>
+        <div id="model-status" class="text-xs text-center text-gray-400 mt-2"></div>
+    </div>
+    <!-- NEW BUTTON -->
+    <button id="open-model-manager-btn" class="w-full text-sm text-center text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white transition">
+        <i class="fa-solid fa-plus-circle mr-1"></i> Add More Models
+    </button>
+</div>
+
+        <!-- Footer -->
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 text-xs text-center text-gray-400">
+            Running Locally (Offline)
+        </div>
+    </aside>
+
+    <!-- MAIN CHAT AREA -->
+    <!-- <main class="flex-1 flex flex-col relative bg-white shadow-mddark:bg-darkbg"> -->
+<main class="flex-1 flex flex-col relative bg-white dark:bg-darkbg shadow-md">
+
+        <!-- Chat History -->
+        <div id="chat-box" class="flex-1 overflow-y-auto p-4 space-y-6 custom-scrollbar scroll-smooth pb-32">
+            <!-- Welcome Message -->
+            <div class="flex flex-col items-center justify-center h-full text-center text-gray-400 opacity-50">
+                <i class="fa-solid fa-comments text-6xl mb-4"></i>
+                <p class="text-lg">Select a document and start chatting.</p>
+            </div>
+        </div>
+
+        <!-- Input Area (Floating) -->
+        <!-- <div class="absolute bottom-0 w-full bg-gradient-to-t from-white via-white to-transparent dark:from-darkbg dark:via-darkbg pb-6 pt-10 px-4">
+            <div class="max-w-3xl mx-auto">
+                <div class="relative flex items-end gap-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl shadow-lg p-2 focus-within:ring-2 focus-within:ring-primary ring-offset-2 dark:ring-offset-darkbg">
+                    
+                    <textarea id="user-input" rows="1" class="w-full bg-transparent border-none focus:ring-0 text-gray-800 dark:text-white resize-none max-h-32 py-3 px-2" placeholder="Ask something about your documents..."></textarea>
+                    
+                    <button id="send-btn" class="bg-primary hover:bg-blue-600 text-white rounded-lg p-3 transition shadow-md flex-shrink-0">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="text-center text-xs text-gray-400 mt-2">
+                    AI can make mistakes. Check important info.
+                </div>
+            </div>
+        </div> -->
+<!-- Input Area (Floating) -->
+<div class="absolute bottom-0 w-full 
+    bg-gradient-to-t 
+    from-white via-white/90 to-transparent 
+    dark:from-gray-900 dark:via-gray-900/90 
+    pb-6 pt-10 px-4">
+
+    <div class="max-w-3xl mx-auto">
+        <div class="relative flex items-end gap-2 
+            bg-white dark:bg-gray-800 
+            border border-gray-300 dark:border-gray-700
+            rounded-2xl shadow-lg 
+            p-2
+            focus-within:ring-2 
+focus-within:ring-primary/70 
+dark:focus-within:ring-primary/50
+            ring-offset-2 dark:ring-offset-gray-900
+            transition">
+            
+            <textarea id="user-input" rows="1"
+                class="w-full bg-transparent border-none focus:ring-0 
+                text-gray-800 dark:text-gray-100
+                placeholder-gray-400 dark:placeholder-gray-500
+                resize-none max-h-32 py-3 px-2 outline-none"
+                placeholder="Ask something about your documents..."></textarea>
+            
+            <button id="send-btn"
+                class="bg-primary hover:opacity-90
+                text-white
+                rounded-xl
+                p-3
+                transition
+                shadow-md hover:shadow-lg
+                active:scale-95
+                flex-shrink-0">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+
+        <div class="text-center text-xs text-gray-500 dark:text-gray-400 mt-2">
+            AI can make mistakes. Check important info.
+        </div>
+    </div>
+</div>
+
+    </main>
+
+<!-- At the bottom of <body> in index.html -->
+
+<!-- Model Manager Modal -->
+<div id="model-manager-modal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center hidden z-50">
+    <div class="bg-white dark:bg-darkcard rounded-lg shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col">
+        <!-- Modal Header -->
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+            <!-- <h2 class="text-lg font-semibold"><i class="fa-solid fa-download mr-2"></i>Model Manager</h2> -->
+<h2 class="flex items-center gap-2 text-lg font-semibold text-gray-800 dark:text-gray-100">
+    <i class="fa-solid fa-download text-primary"></i>
+    <span>Model Manager</span>
+</h2>
+
+            <!-- <button id="close-modal-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                <i class="fa-solid fa-times"></i>
+            </button> -->
+            <!-- <button id="close-modal-btn"
+    class="p-2 rounded-full 
+    text-gray-500 dark:text-gray-400
+    hover:bg-gray-100 dark:hover:bg-gray-800
+    hover:text-gray-800 dark:hover:text-white
+    transition-all duration-200">
+    </button> -->
+
+    <button id="close-modal-btn"
+    class="p-2 rounded-full 
+    text-gray-700 dark:text-gray-300
+    hover:bg-gray-100 dark:hover:bg-gray-800
+    hover:text-gray-900 dark:hover:text-white
+    transition-all duration-200">
+    
+    <i class="fa-solid fa-times"></i>
+</button>
+
+        </div>
+        <!-- Modal Body (Scrollable) -->
+        <div id="downloadable-models-list" class="p-4 overflow-y-auto space-y-3 custom-scrollbar">
+            <!-- Models will be loaded here by JS -->
+            <div class="text-center text-gray-500"><i class="fa-solid fa-spinner fa-spin"></i> Loading available models...</div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Settings Modal -->
+<!-- <div id="settings-modal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center hidden z-50">
+    <div class="bg-white dark:bg-darkcard p-6 rounded-lg shadow-2xl w-96 transform transition-all">
+        
+        Modal Title
+        <div class="flex justify-between items-center mb-6 border-b dark:border-gray-700 pb-2">
+            <h2 class="text-lg font-bold dark:text-white"><i class="fa-solid fa-cog mr-2 text-primary"></i>Configuration</h2>
+            <button id="close-settings-btn" class="text-gray-500 hover:text-red-500 transition">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+        
+        1. API Key Input
+        <div class="mb-5">
+            <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">OpenAI API Key (Optional)</label>
+            <div class="relative">
+                <i class="fa-solid fa-key absolute left-3 top-3 text-gray-400"></i>
+                <input type="password" id="api-key-input" placeholder="sk-..." class="w-full pl-10 p-2 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+            </div>
+            <p class="text-[10px] text-gray-400 mt-1">Leave empty to use the Local Offline Model.</p>
+        </div>
+
+        2. Online Mode Toggle
+        <div class="flex items-center justify-between mb-5 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-globe text-blue-500"></i>
+                <span class="text-sm font-medium dark:text-gray-200">Use Online Model</span>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="online-mode-toggle" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+            </label>
+        </div>
+
+        3. Temperature Slider
+        <div class="mb-5">
+            <div class="flex justify-between mb-1">
+                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Creativity</label>
+                <span id="temp-display" class="text-xs font-mono bg-gray-200 dark:bg-gray-700 px-2 rounded dark:text-white">0.2</span>
+            </div>
+            <input type="range" id="temp-slider" min="0" max="1" step="0.1" value="0.2" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-500">
+            <div class="flex justify-between text-[10px] text-gray-400 mt-1">
+                <span>Precise</span>
+                <span>Creative</span>
+            </div>
+        </div>
+
+        4. Max Tokens Slider
+        <div class="mb-6">
+            <div class="flex justify-between mb-1">
+                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Response Length</label>
+                <span id="token-display" class="text-xs font-mono bg-gray-200 dark:bg-gray-700 px-2 rounded dark:text-white">1024</span>
+            </div>
+            <input type="range" id="token-slider" min="256" max="4096" step="256" value="1024" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-500">
+        </div>
+
+        Save Button
+        <button id="save-settings-btn" class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-2 rounded-lg transition shadow-lg transform active:scale-95">
+            Save Configuration
+        </button>
+    </div>
+</div> -->
+
+
+
+<!-- Settings Modal -->
+<div id="settings-modal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center hidden z-50">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-2xl w-[500px] max-h-[90vh] overflow-y-auto transform transition-all border border-gray-200 dark:border-gray-700">
+        
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6 border-b dark:border-gray-700 pb-3">
+            <h2 class="text-xl font-bold dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-primary"></i> Configuration
+            </h2>
+            <button id="close-settings-btn" class="text-gray-400 hover:text-red-500 transition text-lg">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- SECTION 1: CONNECTIVITY -->
+        <div class="mb-6">
+            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Connectivity</h3>
+            
+            <!-- Online Mode Toggle -->
+            <div class="flex items-center justify-between mb-4 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-100 dark:border-gray-600">
+                <div class="flex items-center gap-3">
+                    <div class="bg-blue-100 dark:bg-blue-900 p-2 rounded-lg text-blue-600 dark:text-blue-300">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <div>
+                        <span class="block text-sm font-semibold dark:text-gray-200">Online Mode (OpenAI)</span>
+                        <span class="block text-xs text-gray-500 dark:text-gray-400">Uses GPT-3.5 (Requires Internet)</span>
+                    </div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="online-mode-toggle" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                </label>
+            </div>
+
+            <!-- API Key Input -->
+            <div class="mb-2">
+                <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">OpenAI API Key</label>
+                <div class="relative">
+                    <i class="fa-solid fa-key absolute left-3 top-3 text-gray-400"></i>
+                    <input type="password" id="api-key-input" placeholder="sk-..." class="w-full pl-10 p-2.5 border rounded-lg text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-primary outline-none transition">
+                </div>
+            </div>
+            <!-- Helpful Link for Users -->
+            <div class="text-right">
+                <a href="https://platform.openai.com/api-keys" target="_blank" class="text-xs text-primary hover:underline flex items-center justify-end gap-1">
+                    Don't have a key? Get one here <i class="fa-solid fa-external-link-alt"></i>
+                </a>
+            </div>
+        </div>
+
+        <hr class="border-gray-200 dark:border-gray-700 mb-6">
+
+        <!-- SECTION 2: AI BRAIN -->
+        <div class="mb-6">
+            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">AI Personality & Logic</h3>
+
+            <!-- System Persona -->
+            <div class="mb-4">
+                <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">System Persona (Instructions)</label>
+                <textarea id="system-prompt-input" rows="3" class="w-full p-2.5 border rounded-lg text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-primary outline-none resize-none" placeholder="e.g., You are a helpful assistant..."></textarea>
+                <p class="text-[10px] text-gray-400 mt-1">Tell the AI how to behave (e.g., "Be concise", "Act like a pirate").</p>
+            </div>
+
+            <!-- Temperature Slider -->
+            <div class="mb-5">
+                <div class="flex justify-between mb-1">
+                    <label class="text-xs font-bold text-gray-500 dark:text-gray-400">Creativity (Temperature)</label>
+                    <span id="temp-display" class="text-xs font-mono bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded dark:text-white">0.2</span>
+                </div>
+                <input type="range" id="temp-slider" min="0" max="1" step="0.1" value="0.2" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-primary">
+            </div>
+
+            <!-- Max Tokens -->
+            <div class="mb-4">
+                <div class="flex justify-between mb-1">
+                    <label class="text-xs font-bold text-gray-500 dark:text-gray-400">Max Response Length</label>
+                    <span id="token-display" class="text-xs font-mono bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded dark:text-white">1024</span>
+                </div>
+                <input type="range" id="token-slider" min="256" max="4096" step="256" value="1024" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-primary">
+            </div>
+        </div>
+        
+        <hr class="border-gray-200 dark:border-gray-700 mb-6">
+
+        <!-- SECTION 3: RAG PERFORMANCE -->
+        <div class="mb-6">
+            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Performance (RAG)</h3>
+            
+            <!-- Retrieval Depth -->
+            <div class="mb-1">
+                <div class="flex justify-between mb-1">
+                    <label class="text-xs font-bold text-gray-500 dark:text-gray-400">Context Depth (Chunks)</label>
+                    <span id="k-display" class="text-xs font-mono bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded dark:text-white">3</span>
+                </div>
+                <input type="range" id="k-slider" min="1" max="10" step="1" value="3" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-primary">
+                <p class="text-[10px] text-gray-400 mt-1">Higher = More context but slower. Lower = Faster.</p>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-3">
+            <button id="reset-settings-btn" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2.5 rounded-lg transition text-sm">
+                Reset Defaults
+            </button>
+            <button id="save-settings-btn" class="flex-[2] bg-primary hover:bg-blue-600 text-white font-bold py-2.5 rounded-lg transition shadow-lg text-sm">
+                Save Changes
+            </button>
+        </div>
+    </div>
+</div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+</body>
+</html>
