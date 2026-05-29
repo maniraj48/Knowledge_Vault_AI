@@ -9,9 +9,9 @@ Built on a robust Python-Flask architecture, the system utilizes **Retrieval-Aug
 
 ---
 
-![Knowledge Vault AI Main Interface](https://github.com/maniraj48/Knowledge_Vault_AI/blob/main/screenshots/intro.png?raw=true)
+![Knowledge Vault AI Main Interface](https://github.com/maniraj48/Knowledge_Vault_AI/screenshots/intro.png)
 
-
+![Demo of the Waste Classifier Web App](./demo.png)
 ## ✨ Key Features
 
 *   **🔒 100% Offline & Private:** Your documents never leave your computer. Inference is done locally using CPU/GPU optimized `.gguf` models.
