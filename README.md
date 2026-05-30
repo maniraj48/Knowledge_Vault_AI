@@ -22,6 +22,9 @@ Built on a robust Python-Flask architecture, the system utilizes **Retrieval-Aug
 *   **⚙️ Hybrid Mode & Customization:** Switch to OpenAI (GPT-3.5/4) via API key if an internet connection is available. Adjust AI temperature, context depth, and system personas on the fly.
 *   **🌗 Modern UI:** A responsive, Tailwind CSS-powered interface with Light and Dark mode support.
 
+
+![Models](https://github.com/maniraj48/Knowledge_Vault_AI/blob/main/screenshots/models.png)
+
 ---
 
 ## 🛠️ Tech Stack
@@ -35,7 +38,10 @@ Built on a robust Python-Flask architecture, the system utilizes **Retrieval-Aug
 
 ---
 
-![Models](https://github.com/maniraj48/Knowledge_Vault_AI/blob/main/screenshots/models.png)
+##  ⚙️ Architecture
+<p align="center">
+<img src="https://github.com/maniraj48/Knowledge_Vault_AI/blob/main/screenshots/archi.png" height="300" align="center" alt="Architecture">
+</p>
 
 ---
 
